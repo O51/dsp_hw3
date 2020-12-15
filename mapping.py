@@ -13,7 +13,7 @@ class mapping:
 			lstzuin = lst[1].split("/")
 			for zuin in lstzuin:
 				if(self.map.get(zuin)==None):self.map[zuin] = []
-				if(lst[0] not in ["<",">"]):self.map[zuin].append(lst[0])
+				self.map[zuin].append(lst[0])
 			self.map[lst[0]] = lst[0]
 	def dump_map(self):
 		keylist = self.map.keys()
