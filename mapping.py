@@ -1,10 +1,10 @@
 import sys
 class mapping:
-	def __init__(From,To):
+	def __init__(self,From,To):
 		self.input = From
 		self.output = To
 		self.map = dict()
-	def read_map():
+	def read_map(self):
 		input_map = open(self.input,'r',encoding = "Big5")
 		line = input_map.readlines()
 		input_map.close()
@@ -14,7 +14,7 @@ class mapping:
 			for zuin in lstzuin:
 				self.map[zuin[0]].append(lst[0])
 			self.map[lst[0]] = lst[0]
-	def dump_map():
+	def dump_map(self):
 		keylist = self.map.keys()
 		outlist = []
 		for key in keylist:
