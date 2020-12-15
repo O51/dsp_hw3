@@ -5,7 +5,7 @@ class mapping:
 		self.output = To
 		self.map = dict()
 	def read_map(self):
-		input_map = open(self.input,'r',encoding = "Big5")
+		input_map = open(self.input,'r',encoding = "big5-hkscs")
 		line = input_map.readlines()
 		input_map.close()
 		for ln in line:
@@ -19,7 +19,7 @@ class mapping:
 		outlist = []
 		for key in keylist:
 			outlist.append(key+" "+" ".join(self.map[key])+"\n")
-		output_dump = open(self.output,'w',encoding = "Big5")
+		output_dump = open(self.output,'w',encoding = "big5-hkscs")
 		output_dump.writelines(outlist)
 		output_dump.close()
 if __name__ == '__main__':
