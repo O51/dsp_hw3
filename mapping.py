@@ -12,7 +12,7 @@ class mapping:
 			lst = ln.split()
 			lstzuin = lst[1].split("/")
 			for zuin in lstzuin:
-				if(self.map.count(zuin)==0):self.map[zuin] = []
+				if(self.map.get(zuin)==None):self.map[zuin] = []
 				self.map[zuin].append(lst[0])
 			self.map[lst[0]] = lst[0]
 	def dump_map(self):
