@@ -23,6 +23,7 @@ class mapping:
 		output_dump.writelines(outlist)
 		output_dump.close()
 if __name__ == '__main__':
+	printf("working\n")
 	mpp = mapping(sys.argv[1],sys.argv[2])
 	mpp.read_map()
 	mpp.dump_map()
