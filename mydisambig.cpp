@@ -58,7 +58,8 @@ void disambig:: read_map(const char* mappath)
 int main(int argc,char* argv[])
 {
     disambig dsp_hw3;
-    printf("line60\n");
+    //printf("line60\n");
+    printf("%d\n",argc);
     for(int i=0;i<argc;i++)printf("%s\n",argv[i]);
     //string mappath = argv[2];
     //printf("mappath = %s\n",mappath);
