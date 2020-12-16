@@ -34,7 +34,9 @@ void disambig:: read_map(string mappath)
 {
     fstream file;
     file.open(mappath,ios::in);
+    printf("before big\n");
     char buffer[int(5e8)];
+    printf("after big\n");
     string BUFFER;
     if(!file)
     {
