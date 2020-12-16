@@ -46,7 +46,7 @@ void disambig:: read_map(string mappath)
         file.close();
     };
     BUFFER = buffer;
-    buffer = '';
+    buffer = "";
     printf(BUFFER[0] + '\n');
     
     
