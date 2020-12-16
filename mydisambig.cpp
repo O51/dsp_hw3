@@ -11,7 +11,7 @@ class disambig
         disambig();
         void resolve(const string mappath,const string modelpath);
 
-        void read_map(string mappath);
+        void read_map(const char* mappath);
         void read_model(string modelpath);
         string resolve_line(int column,bool out);
 
@@ -30,7 +30,7 @@ disambig::disambig()
     //buffer_model = new char[5e8];
 
 };
-void disambig:: read_map(string mappath)
+void disambig:: read_map(const char* mappath)
 {
     printf("read start\n");
     fstream file;
@@ -39,7 +39,7 @@ void disambig:: read_map(string mappath)
     printf("before big\n");
     char buffer[int(5e8)];
     printf("after big\n");
-    string BUFFER;
+    //string BUFFER;
     if(!file)
     {
         printf("open map fail\n");
@@ -49,9 +49,9 @@ void disambig:: read_map(string mappath)
         file.read(buffer,sizeof(buffer));
         file.close();
     };
-    BUFFER = buffer;
+    //BUFFER = buffer;
     //buffer = "";
-    printf(buffer);
+    printf("%s",buffer);
     
     
 }
@@ -60,7 +60,7 @@ int main(int argc,char* argv[])
     disambig dsp_hw3;
     printf("line60\n");
     for(int i=0;i<argc;i++)printf("%s\n",argv[i]);
-    string mappath = argv[2];
-    printf("mappath = %s\n",mappath);
-    dsp_hw3.read_map(mappath);
+    //string mappath = argv[2];
+    //printf("mappath = %s\n",mappath);
+    dsp_hw3.read_map(argv[2]);
 }
