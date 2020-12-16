@@ -10,7 +10,7 @@ class disambig
     public:
         disambig();
         void resolve(const string mappath,const string modelpath);
-    protected:
+
         void read_map(string mappath);
         void read_model(string modelpath);
         string resolve_line(int column,bool out);
