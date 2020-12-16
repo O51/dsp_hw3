@@ -32,6 +32,7 @@ disambig::disambig()
 };
 void disambig:: read_map(string mappath)
 {
+    printf("read start\n");
     fstream file;
     printf("before open\n");
     file.open(mappath,ios::in);
@@ -60,6 +61,6 @@ int main(int argc,char* argv[])
     printf("line60\n");
     for(int i=0;i<argc;i++)printf("%s\n",argv[i]);
     string mappath = argv[2];
-    printf("assigned\n");
+    printf("mappath = %s\n",mappath);
     dsp_hw3.read_map(mappath);
 }
