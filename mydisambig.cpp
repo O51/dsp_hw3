@@ -33,6 +33,7 @@ disambig::disambig()
 void disambig:: read_map(string mappath)
 {
     fstream file;
+    printf("before open\n");
     file.open(mappath,ios::in);
     printf("before big\n");
     char buffer[int(5e8)];
