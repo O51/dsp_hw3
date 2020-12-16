@@ -47,7 +47,7 @@ void disambig:: read_map(string mappath)
     };
     BUFFER = buffer;
     //buffer = "";
-    printf(BUFFER[0] + '\n');
+    printf(BUFFER + '\n');
     
     
 }
