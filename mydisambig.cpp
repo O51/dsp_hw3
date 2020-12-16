@@ -34,7 +34,7 @@ void disambig:: read_map(string mappath)
 {
     fstream file;
     file.open(mappath,ios::in);
-    char buffer[5e8];
+    char buffer[int(5e8)];
     string BUFFER;
     if(!file)
     {
@@ -46,7 +46,7 @@ void disambig:: read_map(string mappath)
         file.close();
     };
     BUFFER = buffer;
-    buffer = "";
+    //buffer = "";
     printf(BUFFER[0] + '\n');
     
     
