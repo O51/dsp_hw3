@@ -60,5 +60,6 @@ int main(int argc,char* argv[])
     printf("line60\n");
     for(int i=0;i<argc;i++)printf("%s\n",argv[i]);
     string mappath = argv[2];
+    printf("assigned\n");
     dsp_hw3.read_map(mappath);
 }
