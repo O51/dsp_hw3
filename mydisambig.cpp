@@ -53,7 +53,7 @@ void disambig:: read_map(string mappath)
 }
 int main(int argc,char* argv[])
 {
-    disambig dsp_hw3();
+    disambig dsp_hw3;
     string mappath = argv[2];
     dsp_hw3.read_map(mappath);
 }
