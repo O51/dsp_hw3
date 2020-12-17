@@ -55,7 +55,7 @@ disambig::disambig()
     //buffer_model = new char[5e8];
 
 };
-bool::disambig is_Zhuin(string alpha)
+bool disambig::is_Zhuin(string alpha)
 {
     if(int(alpha.substr(0,1)[0])==0xA3)
     {
