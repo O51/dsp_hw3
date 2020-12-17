@@ -131,6 +131,7 @@ void disambig:: read_model(string modelpath)
         while(getline(file,buffer))
         {
             modelvector = splitStr2Vec(buffer," ");
+            cout<<buffer<<endl;
             
             if(modelvector[0] == starter[0])
             {
