@@ -4,19 +4,43 @@
 #include <map>
 #include<vector>
 #include<iostream>
+#include <iconv.h>
+#include<float.h>
 using namespace std;
+vector<string> splitStr2Vec(string s, string splitSep)//reference:  https://ithelp.ithome.com.tw/articles/10231431
+{
+    vector<string> result;
+    int current = 0; 
+    int next = 0;
+    while (next != -1)
+    {
+        next = s.find_first_of(splitSep, current); 
+        if (next != current)
+        {
+            string tmp = s.substr(current, next - current);
+            if(!tmp.empty())  
+            {
+                result.push_back(tmp);
+            }
+        }
+        current = next + 1; 
+    }
+    return result;
+};
+
 class disambig
 {
     public:
         disambig();
-        void resolve(const string mappath,const string modelpath);
+        void resolver(string inputpath,string mappath,string modelpath,string outputpath);
 
-        void read_map(char* mappath);
+        void read_map(string mappath);
         void read_model(string modelpath);
-        string resolve_line(int column,bool out);
+        // void read_input(string inputpath);
+        //string resolve(int column,bool out);
 
-        map<char*,vector<char*> > mapping;
-        map<char*,vector<int> > model;
+        map<string,vector<string> > mapping;
+        map<string,int> model;
         
         //char* buffer_map;
         //char* buffer_model;
@@ -30,18 +54,19 @@ disambig::disambig()
     //buffer_model = new char[5e8];
 
 };
-void disambig:: read_map(char* mappath)
+void disambig:: read_map(string mappath)
 {
-    printf("read start\n");
+    //printf("read start\n");
     fstream file;
-    printf("before open\n");
+    //printf("before open\n");
     file.open(mappath,ios::in);
-    printf("before big\n");
+    //printf("before big\n");
     //char buffer[];
-    printf("after big\n");
+    //printf("after big\n");
     string BUFFER;
+    string pivot;
     vector<string> mapvector;
-    ofstream fout("buffer/exansbuffer.txt");
+    //ofstream fout("buffer/exansbuffer.txt");
     
     if(!file)
     {
@@ -51,27 +76,150 @@ void disambig:: read_map(char* mappath)
     {
         while(getline(file,BUFFER))
         {
-            mapvector.push_back(BUFFER);
-            fout<<BUFFER<<endl;
+            //mapvector.push_back(BUFFER);
+            //fout<<BUFFER<<endl;
+            mapvector = splitStr2Vec(BUFFER," ");
+            if(mapvector[0] == mapvector[1]||(mapvector[0] >=0xA374 && mapvector[0] <=0xA3B7))
+            {
+                pivot = mpavector[0];
+                mapvector.erase(mapvector.begin());
+                mapping[pivot] = mapvector; 
+            }
+            else
+            {
+                mapping[pivot] = mapping[pivot].insert(mapping[pivot].end(),mapvector.begin(),mapvector.end());
+            }
+            
+            
         };
         file.close();
-        fout.close();
+        //fout.close();
     };
-    // //BUFFER = buffer;
-    // //buffer = "";
-    // printf("%s",buffer);
 
-    // use getline instead!!
     
     
+}
+
+void disambig:: read_model(string modelpath)
+{
+    fstream file;
+    file.open(modelpath,::ios::in);
+    string buffer;
+    vector<string> modelvector;
+    char* starter[2] = {"\1-grams:","\2-grams:"};
+    // char* starterbig5[2];
+    // iconv_t cd = iconv_open("BIG-5", "UTF8");
+    bool gram[2] = {false,false};
+    if(!file)
+    {
+        printf("open model failed\n");
+    }
+    else
+    {
+        while(getline(file,buffer))
+        {
+            modelvector = splitStr2Vec(buffer," ");
+            
+            if(modelvector[0].c_str() == starter[0])
+            {
+                gram[0] = true;
+                printf("start 1-gram\n");
+                continue;
+            }
+            else if(modelvector[0].c_str() == starter[1])
+            {
+                gram[1] = true;
+                gram[0] = false;
+                printf("start 2-gram\n");
+                continue;
+            }
+            else if(!(gram[0] || gram[1]))continue;
+
+            if(gram[0])
+            {
+                if(modelvector.size()==3)
+                {
+                    model[modelvector[1]] = modelvector[2];
+                }
+                else if(modelvector.size()==2)
+                {
+                    model[modelvector[1]] = modelvector[0];
+                };
+            }
+            else if(gram[1])
+            {
+                model[modelvector[1]+modelvector[2]] = modelvector[0];   
+            }
+
+        };
+        file.close();
+    };
+    printf("model size=%d\n",model.size());
+    
+
+};
+void disambig::resolver(string inputpath,string mappath,string modelpath,string outputpath)
+{
+    read_map(mappath);
+    read_model(modelpath);
+    fstream file;
+    fstream output;
+    file.open(inputpath,ios::in);
+    output.open(outputpath,ios::out);
+    string buffer;
+    if(!file)printf("input open failed\n");
+    else
+    {
+        while(getline(file,buffer))
+        {
+            vector<string> Input = splitStr2Vec(buffer," ");
+            vector<vector<string> > possible;
+            vector<map<string,double> > prob;
+            prob[0][Input[0]] = model[Input[0]];
+            map<string,double>connect;
+            for(int i=1;i<Input.size();i++)
+            {
+                possible[i] = mapping[Input[i]];
+                
+                for(int veter=0;veter<possible[i].size();veter++)
+                {
+                    prob[i][possible[i][veter]] = -DBL_MAX;
+                    for(int cf=0;cf<possible[i-1].size();cf++)
+                    {
+                        //double connect=0.0;
+                        model.count(possible[i-1][cf]+possible[i][veter])==1?connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i-1][cf]+possible[i][veter]]:connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i][veter]];
+                        if(prob[i][possible[i][veter]]<prob[i-1][possible[i-1][cf]]+connect)prob[i][possible[i][veter]] = prob[i-1][possible[i-1][cf]]+connect;//language model
+                    };
+                };
+                
+
+            };
+            for(int i=Input.size()-2;i>0;i--)
+            {
+                // backtrack
+                string take = possible[i][0];
+                for(int bk=0;bk<possible[i].size();bk++)
+                {
+                    if(prob[i][take]<prob[i][possible[i][bk]])take=possible[i][bk];
+                };
+                Input[i] = take;
+            };
+            string outputstr=Input[0];
+            for(int i=1;i<Input.size();i++)outputstr = outputstr + " " + Input[i];
+            outputstr = outputstr + "\n";
+            output << outputstr;
+
+
+
+
+        };
+    };
+    file.close();
+    output.close();
 }
 int main(int argc,char* argv[])
 {
     disambig dsp_hw3;
-    //printf("line60\n");
-    printf("%d\n",argc);
-    for(int i=0;i<argc;i++)printf("%s\n",argv[i]);
-    //string mappath = argv[2];
-    //printf("mappath = %s\n",mappath);
-    dsp_hw3.read_map(argv[2]);
+
+    dsp_hw3.resolver(argv[1],argv[2],argv[3],argv[4]);
 }
