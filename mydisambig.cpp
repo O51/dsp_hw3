@@ -36,6 +36,7 @@ class disambig
 
         void read_map(string mappath);
         void read_model(string modelpath);
+        bool is_Zhuin(string alpha);
         // void read_input(string inputpath);
         //string resolve(int column,bool out);
 
@@ -54,6 +55,14 @@ disambig::disambig()
     //buffer_model = new char[5e8];
 
 };
+bool::disambig is_Zhuin(string alpha)
+{
+    if(int(alpha.substr(0,1)[0])==0xA3)
+    {
+        if(int(alpha.substr(1,1)[0])>=0x74 && int(alpha.substr(1,1)[0])<=0xB7)return true;
+    };
+    return false;
+}
 void disambig:: read_map(string mappath)
 {
     //printf("read start\n");
@@ -79,7 +88,7 @@ void disambig:: read_map(string mappath)
             //mapvector.push_back(BUFFER);
             //fout<<BUFFER<<endl;
             mapvector = splitStr2Vec(BUFFER," ");
-            if(mapvector[0] == mapvector[1]||(mapvector[0] >=0xA374 && mapvector[0] <=0xA3B7))
+            if(is_Zhuin(mapvector[0]))
             {
                 pivot = mpavector[0];
                 mapvector.erase(mapvector.begin());
