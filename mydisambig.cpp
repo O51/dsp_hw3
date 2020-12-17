@@ -199,7 +199,7 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
                     {
                         //double connect=0.0;
                         model.count(possible[i-1][cf]+possible[i][veter])==1?connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i-1][cf]+possible[i][veter]]:connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i][veter]];
-                        if(prob[i][possible[i][veter]]<prob[i-1][possible[i-1][cf]]+connect)prob[i][possible[i][veter]] = prob[i-1][possible[i-1][cf]]+=connect;//language model
+                        if(prob[i][possible[i][veter]]<prob[i-1][possible[i-1][cf]]+connect)prob[i][possible[i][veter]] = prob[i-1][possible[i-1][cf]]+=connect[possible[i-1][cf]+possible[i][veter]];//language model
                     };
                 };
                 
