@@ -132,6 +132,7 @@ void disambig:: read_model(string modelpath)
         {
             modelvector = splitStr2Vec(buffer," ");
             cout<<buffer<<endl;
+            printf("after cout\n");
             
             if(modelvector[0] == starter[0])
             {
@@ -146,7 +147,11 @@ void disambig:: read_model(string modelpath)
                 printf("start 2-gram\n");
                 continue;
             }
-            else if(!(gram[0] || gram[1]))continue;
+            else if(!(gram[0] || gram[1]))
+            {
+                printf("none\n");
+                continue;
+            }
 
             if(gram[0])
             {
@@ -162,7 +167,7 @@ void disambig:: read_model(string modelpath)
             else if(gram[1])
             {
                 model[modelvector[1]+modelvector[2]] = atof(modelvector[0].c_str());   
-            }
+            };
 
         };
         file.close();
