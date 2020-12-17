@@ -96,7 +96,7 @@ void disambig:: read_map(string mappath)
             }
             else
             {
-                vector<string> storage = mapping[pivot]
+                vector<string> storage = mapping[pivot];
                 storage.insert(storage.end(),mapvector.begin(),mapvector.end());
                 mapping[pivot] = storage;
             };
@@ -150,16 +150,16 @@ void disambig:: read_model(string modelpath)
             {
                 if(modelvector.size()==3)
                 {
-                    model[modelvector[1]] = modelvector[2];
+                    model[modelvector[1]] = atof(modelvector[2].c_str());
                 }
                 else if(modelvector.size()==2)
                 {
-                    model[modelvector[1]] = modelvector[0];
+                    model[modelvector[1]] = atof(modelvector[0].c_str());
                 };
             }
             else if(gram[1])
             {
-                model[modelvector[1]+modelvector[2]] = modelvector[0];   
+                model[modelvector[1]+modelvector[2]] = atof(modelvector[0].c_str());   
             }
 
         };
@@ -199,7 +199,7 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
                     {
                         //double connect=0.0;
                         model.count(possible[i-1][cf]+possible[i][veter])==1?connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i-1][cf]+possible[i][veter]]:connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i][veter]];
-                        if(prob[i][possible[i][veter]]<prob[i-1][possible[i-1][cf]]+connect)prob[i][possible[i][veter]] = prob[i-1][possible[i-1][cf]]+connect;//language model
+                        if(prob[i][possible[i][veter]]<prob[i-1][possible[i-1][cf]]+connect)prob[i][possible[i][veter]] = prob[i-1][possible[i-1][cf]]+=connect;//language model
                     };
                 };
                 
