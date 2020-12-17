@@ -65,7 +65,7 @@ bool disambig::is_Zhuin(string alpha)
 }
 void disambig:: read_map(string mappath)
 {
-    //printf("read start\n");
+    printf("read mapping start\n");
     fstream file;
     //printf("before open\n");
     file.open(mappath,ios::in);
@@ -113,11 +113,12 @@ void disambig:: read_map(string mappath)
 
 void disambig:: read_model(string modelpath)
 {
+    printf("start read model\n");
     fstream file;
     file.open(modelpath,::ios::in);
     string buffer;
     vector<string> modelvector;
-    char* starter[2] = {"\1-grams:","\2-grams:"};
+    string starter[2] = {"\1-grams:","\2-grams:"};
     // char* starterbig5[2];
     // iconv_t cd = iconv_open("BIG-5", "UTF8");
     bool gram[2] = {false,false};
@@ -131,13 +132,13 @@ void disambig:: read_model(string modelpath)
         {
             modelvector = splitStr2Vec(buffer," ");
             
-            if(modelvector[0].c_str() == starter[0])
+            if(modelvector[0] == starter[0])
             {
                 gram[0] = true;
                 printf("start 1-gram\n");
                 continue;
             }
-            else if(modelvector[0].c_str() == starter[1])
+            else if(modelvector[0] == starter[1])
             {
                 gram[1] = true;
                 gram[0] = false;
@@ -173,6 +174,7 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
 {
     read_map(mappath);
     read_model(modelpath);
+    printf("files read\n");
     fstream file;
     fstream output;
     file.open(inputpath,ios::in);
