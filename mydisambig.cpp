@@ -33,25 +33,32 @@ disambig::disambig()
 void disambig:: read_map(char* mappath)
 {
     printf("read start\n");
-    // fstream file;
-    // printf("before open\n");
-    // file.open(mappath,ios::in);
-    // printf("before big\n");
-    // char buffer[int(5e8)];
-    // printf("after big\n");
-    // //string BUFFER;
-    // if(!file)
-    // {
-    //     printf("open map fail\n");
-    // }
-    // else
-    // {
-    //     file.read(buffer,sizeof(buffer));
-    //     file.close();
-    // };
+    fstream file;
+    printf("before open\n");
+    file.open(mappath,ios::in);
+    printf("before big\n");
+    //char buffer[];
+    printf("after big\n");
+    string BUFFER;
+    vector<string> mapvector;
+    if(!file)
+    {
+        printf("open map fail\n");
+    }
+    else
+    {
+        while(file.getline(file,BUFFER))
+        {
+            mapvector.append(BUFFER);
+            printf("%s\n",BUFFER);
+        };
+        file.close();
+    };
     // //BUFFER = buffer;
     // //buffer = "";
     // printf("%s",buffer);
+
+    // use getline instead!!
     
     
 }
