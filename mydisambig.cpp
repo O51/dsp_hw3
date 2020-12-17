@@ -96,7 +96,8 @@ void disambig:: read_map(string mappath)
             }
             else
             {
-                vector<string> storage = mapping[pivot].insert(mapping[pivot].end(),mapvector.begin(),mapvector.end());
+                vector<string> storage = mapping[pivot]
+                storage.insert(storage.end(),mapvector.begin(),mapvector.end());
                 mapping[pivot] = storage;
             };
             
