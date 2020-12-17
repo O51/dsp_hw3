@@ -41,8 +41,8 @@ void disambig:: read_map(char* mappath)
     printf("after big\n");
     string BUFFER;
     vector<string> mapvector;
-    FILE* ft;
-    ft = fopen("buffer/exansbuffer.txt","w");
+    ofstream fout("buffer/exansbuffer.txt");
+    
     if(!file)
     {
         printf("open map fail\n");
@@ -52,10 +52,10 @@ void disambig:: read_map(char* mappath)
         while(getline(file,BUFFER))
         {
             mapvector.push_back(BUFFER);
-            fprintf(ft,"%s\n",BUFFER);
+            fout<<BUFFER<<endl;
         };
         file.close();
-        fclose(ft);
+        fout.close();
     };
     // //BUFFER = buffer;
     // //buffer = "";
