@@ -90,7 +90,7 @@ void disambig:: read_map(string mappath)
             mapvector = splitStr2Vec(BUFFER," ");
             if(is_Zhuin(mapvector[0]))
             {
-                pivot = mpavector[0];
+                pivot = mapvector[0];
                 mapvector.erase(mapvector.begin());
                 mapping[pivot] = mapvector; 
             }
