@@ -53,12 +53,6 @@ disambig::disambig()
 {
     //buffer_map = new char[5e8];
     //buffer_model = new char[5e8];
-    string alpha = "我";
-    int a=strlen(alpha.c_str());
-    for(int i=0;i<a;i++)
-    {
-        printf("construct %x\n",alpha.c_str()[i]);
-    }
 
  
     
@@ -191,7 +185,7 @@ void disambig:: read_model(string modelpath)
 
             if(gram[0])
             {
-                printf("modelvector size=%d\n",modelvector.size());
+                // printf("modelvector size=%d\n",modelvector.size());
                 if(modelvector.size()==3)
                 {
                     model[modelvector[1]] = atof(modelvector[2].c_str());
@@ -205,7 +199,7 @@ void disambig:: read_model(string modelpath)
             }
             else if(gram[1])
             {
-                printf("modelvector size=%d\n",modelvector.size());
+                // printf("modelvector size=%d\n",modelvector.size());
                 vector<string> stg1 = splitStr2Vec(modelvector[1]," ");
                 if(modelvector.size()+stg1.size()==4)
                 {
@@ -238,9 +232,9 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
     {
         while(getline(file,buffer))
         {
-            static int count=0;
-            count +=1;
-            printf("resolving %d line\n",count);
+            // static int count=0;
+            // count +=1;
+            // printf("resolving %d line\n",count);
             buffer = "<s> " + buffer +" </s>";
             vector<string> Input = splitStr2Vec(buffer," ");
             printf("splitted\n");
@@ -261,7 +255,7 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
                 }
                 
                 
-                printf("mapped\n");
+                // printf("mapped\n");
                 
                 for(int veter=0;veter<possible[i].size();veter++)
                 {
@@ -286,7 +280,7 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
                 string take = possible[i][0];
                 for(int bk=0;bk<possible[i].size();bk++)
                 {
-                    if(prob[i][take]<prob[i][possible[i][bk]])take=possible[i][bk];
+                    if(prob[i][take]+connect[take+Input[i+1]]<prob[i][possible[i][bk]]+connect[possible[i][bk]+Input[i+1]])take=possible[i][bk];
                 };
                 Input[i] = take;
             };
