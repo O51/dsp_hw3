@@ -239,6 +239,9 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
             printf("splitted\n");
             vector<vector<string> > possible;
             vector<map<string,double> > prob;
+            possible.resize(Input.size());
+            prob.resize(Input.size());
+            possible[0]={Input[0]};
             prob[0][Input[0]] = model[Input[0]];
             map<string,double>connect;
             for(int i=1;i<Input.size();i++)
