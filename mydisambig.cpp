@@ -60,9 +60,9 @@ disambig::disambig()
 };
 bool disambig::is_Zhuin(string alpha)
 {
-    if(int(alpha.substr(0,1)[0])==0xA3)
+    if(int(alpha.substr(0,1)[0])==0xffffffa3)
     {
-        if(int(alpha.substr(1,1)[0])>=0x74 && int(alpha.substr(1,1)[0])<=0xB7)
+        if(int(alpha.substr(1,1)[0])>=0x74 && int(alpha.substr(1,1)[0])<=0xffffffB7)
         {
 
             return true;
