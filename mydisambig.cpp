@@ -147,7 +147,8 @@ void disambig:: read_model(string modelpath)
             static int counter=0;
             counter +=1;
             //printf("model %d line\n",counter);
-            modelvector = splitStr2Vec(buffer," ");
+            modelvector = splitStr2Vec(buffer,"\t");
+            
             // cout<<buffer<<endl;
             // printf("after cout\n");
             // bool a = modelvector[0] == starter[0];
