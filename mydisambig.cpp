@@ -116,6 +116,9 @@ void disambig:: read_map(string mappath)
             
         };
         file.close();
+        mapping["<s>"] = {"<s>"};
+        mapping["</s>"] = {"</s>"};
+        mapping["<unk>"] = {"<unk>"};
         printf("map size=%d\n",mapping.size());
         //fout.close();
     };
@@ -233,6 +236,7 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
             printf("resolving %d line\n",count);
             buffer = "<s> " + buffer +" </s>";
             vector<string> Input = splitStr2Vec(buffer," ");
+            printf("splitted\n");
             vector<vector<string> > possible;
             vector<map<string,double> > prob;
             prob[0][Input[0]] = model[Input[0]];
