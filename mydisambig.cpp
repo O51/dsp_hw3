@@ -54,10 +54,17 @@ disambig::disambig()
     //buffer_map = new char[5e8];
     //buffer_model = new char[5e8];
     printf("chinese=%x,%x\n","ㄅ"[0],"ㄅ"[1]);
+
     printf("chinese=%x,%x\n","ㄦ"[0],"ㄦ"[1]);
 
+    string hante[37] = {"ㄅ","ㄆ","ㄇ","ㄈ","ㄉ","ㄊ","ㄋ","ㄌ","ㄍ","ㄎ","ㄏ","ㄐ","ㄑ","ㄒ","ㄓ","ㄔ","ㄕ","ㄖ","ㄗ","ㄘ","ㄙ","ㄧ","ㄨ","ㄩ","ㄚ","ㄛ","ㄜ","ㄝ","ㄞ","ㄟ","ㄠ","ㄡ","ㄢ","ㄣ","ㄤ","ㄥ","ㄦ"};
+    for(int i=0;i<37;i++)
+    {
+        printf("correctness=%d\n",is_Zhuin(hante[i]));
+    }
 
-};
+
+}
 bool disambig::is_Zhuin(string alpha)
 {
     if(alpha[0]==0xffffffa3)
