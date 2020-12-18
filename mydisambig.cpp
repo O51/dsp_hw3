@@ -148,7 +148,7 @@ void disambig:: read_model(string modelpath)
             counter +=1;
             //printf("model %d line\n",counter);
             modelvector = splitStr2Vec(buffer,"\t");
-            
+
             // cout<<buffer<<endl;
             // printf("after cout\n");
             // bool a = modelvector[0] == starter[0];
@@ -196,9 +196,10 @@ void disambig:: read_model(string modelpath)
             else if(gram[1])
             {
                 printf("modelvector size=%d\n",modelvector.size());
-                if(modelvector.size()==3)
+                vector<string> stg1 = splitStr2Vec(modelvector[1]," ");
+                if(modelvector.size()+stg1.size()==4)
                 {
-                    model[modelvector[1]+modelvector[2]] = atof(modelvector[0].c_str());
+                    model[stg1[0]+stg1[1]] = atof(modelvector[0].c_str());
                     printf("model added=%f\n",model[modelvector[1]+modelvector[2]]);  
                 } 
             };
