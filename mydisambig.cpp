@@ -101,6 +101,10 @@ void disambig:: read_map(string mappath)
                 mapvector.erase(mapvector.begin());
                 mapping[pivot] = mapvector; 
             }
+            else if(mapvector[0] == mapvector[1])
+            {
+                mapping[mapvector[0]] = mapvector[1];
+            }
             else
             {
                 vector<string> storage = mapping[pivot];
