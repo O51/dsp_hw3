@@ -53,13 +53,20 @@ disambig::disambig()
 {
     //buffer_map = new char[5e8];
     //buffer_model = new char[5e8];
+    printf("chinese=%x,%x\n","ㄅ".c_str()[0],"ㄅ".c_str()[1]);
+    printf("chinese=%x,%x\n","ㄦ".c_str()[0],"ㄦ".c_str()[1]);
+
 
 };
 bool disambig::is_Zhuin(string alpha)
 {
     if(int(alpha.substr(0,1)[0])==0xA3)
     {
-        if(int(alpha.substr(1,1)[0])>=0x74 && int(alpha.substr(1,1)[0])<=0xB7)return true;
+        if(int(alpha.substr(1,1)[0])>=0x74 && int(alpha.substr(1,1)[0])<=0xB7)
+        {
+
+            return true;
+        }
     };
     return false;
 }
@@ -119,10 +126,11 @@ void disambig:: read_model(string modelpath)
     file.open(modelpath,::ios::in);
     string buffer;
     vector<string> modelvector;
-    string starter[2] = {"\1-grams:","\2-grams:"};
+    // string starter[2] = {"\1-grams:","\2-grams:"};
     // char* starterbig5[2];
     // iconv_t cd = iconv_open("BIG-5", "UTF8");
     bool gram[2] = {false,false};
+    int spce=0;
     if(!file)
     {
         printf("open model failed\n");
@@ -140,15 +148,16 @@ void disambig:: read_model(string modelpath)
             if(modelvector.empty())
             {
                 printf("space occur\n");
+                spce +=1;
                 continue;
             }
-            else if(modelvector[0].find(starter[0]) != string::npos)
+            else if(spce==2)
             {
                 gram[0] = true;
                 printf("start 1-gram\n");
                 continue;
             }
-            else if(modelvector[0].find(starter[1]) != string::npos)
+            else if(spce==3)
             {
                 gram[1] = true;
                 gram[0] = false;
