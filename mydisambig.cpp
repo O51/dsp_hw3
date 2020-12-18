@@ -104,6 +104,7 @@ void disambig:: read_map(string mappath)
             
         };
         file.close();
+        printf("map size=%d\n",mapping.size());
         //fout.close();
     };
 
@@ -133,8 +134,8 @@ void disambig:: read_model(string modelpath)
             modelvector = splitStr2Vec(buffer," ");
             cout<<buffer<<endl;
             printf("after cout\n");
-            bool a = modelvector[0] == starter[0];
-            printf("a=%d\n",a);
+            // bool a = modelvector[0] == starter[0];
+            // printf("a=%d\n",a);
 
             if(modelvector.empty())
             {
