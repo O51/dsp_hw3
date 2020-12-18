@@ -188,7 +188,7 @@ void disambig:: read_model(string modelpath)
                 // printf("modelvector size=%d\n",modelvector.size());
                 if(modelvector.size()==3)
                 {
-                    model[modelvector[1]] = atof(modelvector[2].c_str());
+                    model[modelvector[1]] = atof(modelvector[0].c_str());
                     // printf("model added=%f\n",model[modelvector[1]]);
                 }
                 else if(modelvector.size()==2)
@@ -267,24 +267,32 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
                         else if(model.count(possible[i][veter]))connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i][veter]];
                         else connect[possible[i-1][cf]+possible[i][veter]]=model["<unk>"];
                         // printf("connect found at %d\n",count);
-                        if(prob[i][possible[i][veter]]<prob[i-1][possible[i-1][cf]]+connect[possible[i-1][cf]+possible[i][veter]])prob[i][possible[i][veter]] = prob[i-1][possible[i-1][cf]]+connect[possible[i-1][cf]+possible[i][veter]];//language model
+                        if(prob[i][possible[i][veter]]<prob[i-1][possible[i-1][cf]]+connect[possible[i-1][cf]+possible[i][veter]])
+                        {
+                            prob[i][possible[i][veter]] = prob[i-1][possible[i-1][cf]]+connect[possible[i-1][cf]+possible[i][veter]];//language model
+                            printf("changed\n");
+                        };
                     };
                 };
                 
 
             };
-            printf("before backtrack\n");
+            // printf("before backtrack\n");
             for(int i=Input.size()-2;i>0;i--)
             {
                 // backtrack
                 string take = possible[i][0];
                 for(int bk=0;bk<possible[i].size();bk++)
                 {
-                    if(prob[i][take]+connect[take+Input[i+1]]<prob[i][possible[i][bk]]+connect[possible[i][bk]+Input[i+1]])take=possible[i][bk];
+                    if(prob[i][take]+connect[take+Input[i+1]]<prob[i][possible[i][bk]]+connect[possible[i][bk]+Input[i+1]])
+                    {
+                        take=possible[i][bk];
+                        printf("backtrack changed\n");
+                    }
                 };
                 Input[i] = take;
             };
-            printf("after backtrac\n");
+            // printf("after backtrac\n");
             string outputstr=Input[0];
             for(int i=1;i<Input.size();i++)outputstr = outputstr + " " + Input[i];
             outputstr = outputstr + "\n";
