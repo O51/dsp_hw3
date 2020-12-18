@@ -132,8 +132,8 @@ void disambig:: read_model(string modelpath)
         while(getline(file,buffer))
         {
             modelvector = splitStr2Vec(buffer," ");
-            cout<<buffer<<endl;
-            printf("after cout\n");
+            // cout<<buffer<<endl;
+            // printf("after cout\n");
             // bool a = modelvector[0] == starter[0];
             // printf("a=%d\n",a);
 
@@ -142,13 +142,13 @@ void disambig:: read_model(string modelpath)
                 printf("space occur\n");
                 continue;
             }
-            else if(modelvector[0] == starter[0])
+            else if(modelvector[0].find(starter[0]) != string::npos)
             {
                 gram[0] = true;
                 printf("start 1-gram\n");
                 continue;
             }
-            else if(modelvector[0] == starter[1])
+            else if(modelvector[0].find(starter[1]) != string::npos)
             {
                 gram[1] = true;
                 gram[0] = false;
