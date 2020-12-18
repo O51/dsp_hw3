@@ -60,8 +60,14 @@ disambig::disambig()
 };
 bool disambig::is_Zhuin(string alpha)
 {
-    string a_hante="ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦ";
-    if (a_hante.find(alpha))return true;
+    if(alpha[0]==0xffffffa3)
+    {
+        if(alpha[1] >=0x74 && alpha[1] <=0xffffffb7)
+        {
+            printf("Zhuin= %x\n",alpha[1]);
+            return true;
+        }
+    }
     return false;
 }
 void disambig:: read_map(string mappath)
@@ -94,7 +100,7 @@ void disambig:: read_map(string mappath)
                 pivot = mapvector[0];
                 mapvector.erase(mapvector.begin());
                 mapping[pivot] = mapvector;
-                printf("Zhuin=%x\n",mapvector[0][1]); 
+                //printf("Zhuin=%x\n",mapvector[0][1]); 
             }
             else if(mapvector[0] == mapvector[1])
             {
