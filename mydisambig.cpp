@@ -80,7 +80,7 @@ void disambig:: read_map(string mappath)
     string BUFFER;
     string pivot;
     vector<string> mapvector;
-    int zhuin_cnt =0;
+    //int zhuin_cnt =0;
     //ofstream fout("buffer/exansbuffer.txt");
     
     if(!file)
@@ -99,8 +99,8 @@ void disambig:: read_map(string mappath)
                 pivot = mapvector[0];
                 mapvector.erase(mapvector.begin());
                 mapping[pivot] = mapvector;
-                zhuin_cnt +=1;
-                printf("Zhuin=%d\n",zhuin_cnt); 
+                //zhuin_cnt +=1;
+                //printf("Zhuin=%d\n",zhuin_cnt); 
             }
             else if(mapvector[0] == mapvector[1])
             {
@@ -144,6 +144,9 @@ void disambig:: read_model(string modelpath)
     {
         while(getline(file,buffer))
         {
+            static int counter=0;
+            counter +=1;
+            printf("model %d line\n",counter);
             modelvector = splitStr2Vec(buffer," ");
             // cout<<buffer<<endl;
             // printf("after cout\n");
