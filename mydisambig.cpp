@@ -71,7 +71,7 @@ return false;
 }
 void disambig:: read_map(string mappath)
 {
-    printf("read mapping start\n");
+    // printf("read mapping start\n");
     fstream file;
     //printf("before open\n");
     file.open(mappath,ios::in);
@@ -264,8 +264,8 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
                     {
                         //double connect=0.0;
                         if(model.count(possible[i-1][cf]+possible[i][veter]))connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i-1][cf]+possible[i][veter]];
-                        else if(model.count(possible[i][veter]))connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i][veter]];
-                        else connect[possible[i-1][cf]+possible[i][veter]]=model["<unk>"];
+                        else if(model.count(possible[i][veter]))connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i][veter]]/10;
+                        else connect[possible[i-1][cf]+possible[i][veter]]=model["<unk>"]/100;
                         // printf("connect found at %d\n",count);
                         if(prob[i][possible[i][veter]]<prob[i-1][possible[i-1][cf]]+connect[possible[i-1][cf]+possible[i][veter]])
                         {
