@@ -243,7 +243,14 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
             map<string,double>connect;
             for(int i=1;i<Input.size();i++)
             {
-                possible[i] = mapping[Input[i]];
+                if(mapping.count(Input[i]))possible[i] = mapping[Input[i]];
+                else
+                {
+                    printf("mapping error=%s at %d line %d element\n",Input[i],count,i);
+                    possible[i] = {"<unk>"};
+                }
+                
+                
                 printf("mapped\n");
                 
                 for(int veter=0;veter<possible[i].size();veter++)
