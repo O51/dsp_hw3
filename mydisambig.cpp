@@ -54,7 +54,7 @@ disambig::disambig()
     //buffer_map = new char[5e8];
     //buffer_model = new char[5e8];
     string alpha = "我";
-    int a=(alpha.c_str()).size();
+    int a=strlen(alpha.c_str());
     for(int i=0;i<a;i++)
     {
         printf("construct %x\n",alpha.c_str()[i]);
