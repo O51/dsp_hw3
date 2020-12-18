@@ -60,8 +60,8 @@ disambig::disambig()
 };
 bool disambig::is_Zhuin(string alpha)
 {
-    string a="ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦ";
-    if a.find(alpha)return true;
+    string a_hante="ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦ";
+    if (a_hante.find(alpha))return true;
     return false;
 }
 void disambig:: read_map(string mappath)
