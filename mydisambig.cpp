@@ -134,7 +134,7 @@ void disambig:: read_model(string modelpath)
     // string starter[2] = {"\1-grams:","\2-grams:"};
     // char* starterbig5[2];
     // iconv_t cd = iconv_open("BIG-5", "UTF8");
-    bool gram[2] = {false,false};
+    static bool gram[2] = {false,false};
     int spce=0;
     if(!file)
     {
@@ -173,7 +173,7 @@ void disambig:: read_model(string modelpath)
             {
                 printf("none\n");
                 continue;
-            }
+            };
 
             if(gram[0])
             {
@@ -195,6 +195,8 @@ void disambig:: read_model(string modelpath)
         file.close();
     };
     printf("model size=%d\n",model.size());
+    gram[0] = false;
+    gram[1] = false;
     
 
 };
