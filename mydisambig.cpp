@@ -228,6 +228,9 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
     {
         while(getline(file,buffer))
         {
+            static count=0;
+            count +=1;
+            printf("resolving %d line\n",count);
             buffer = "<s> " + buffer +" </s>";
             vector<string> Input = splitStr2Vec(buffer," ");
             vector<vector<string> > possible;
@@ -237,6 +240,7 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
             for(int i=1;i<Input.size();i++)
             {
                 possible[i] = mapping[Input[i]];
+                printf("mapped\n");
                 
                 for(int veter=0;veter<possible[i].size();veter++)
                 {
@@ -247,12 +251,14 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
                         if(model.count(possible[i-1][cf]+possible[i][veter]))connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i-1][cf]+possible[i][veter]];
                         else if(model.count(possible[i][veter]))connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i][veter]];
                         else connect[possible[i-1][cf]+possible[i][veter]]=model["<unk>"];
+                        printf("connect found\n");
                         if(prob[i][possible[i][veter]]<prob[i-1][possible[i-1][cf]]+connect[possible[i-1][cf]+possible[i][veter]])prob[i][possible[i][veter]] = prob[i-1][possible[i-1][cf]]+connect[possible[i-1][cf]+possible[i][veter]];//language model
                     };
                 };
                 
 
             };
+            printf("before backtrack\n");
             for(int i=Input.size()-2;i>0;i--)
             {
                 // backtrack
@@ -263,6 +269,7 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
                 };
                 Input[i] = take;
             };
+            printf("after backtrac\n");
             string outputstr=Input[0];
             for(int i=1;i<Input.size();i++)outputstr = outputstr + " " + Input[i];
             outputstr = outputstr + "\n";
