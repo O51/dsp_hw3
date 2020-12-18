@@ -99,7 +99,8 @@ void disambig:: read_map(string mappath)
             {
                 pivot = mapvector[0];
                 mapvector.erase(mapvector.begin());
-                mapping[pivot] = mapvector; 
+                mapping[pivot] = mapvector;
+                printf("Zhuin=%s\n",mapvector[0]); 
             }
             else if(mapvector[0] == mapvector[1])
             {
