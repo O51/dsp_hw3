@@ -53,6 +53,13 @@ disambig::disambig()
 {
     //buffer_map = new char[5e8];
     //buffer_model = new char[5e8];
+    string alpha = "我";
+    int a=(alpha.c_str()).size();
+    for(int i=0;i<a;i++)
+    {
+        printf("construct %x\n",alpha.c_str()[i]);
+    }
+
  
     
 
@@ -265,7 +272,7 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
                         if(model.count(possible[i-1][cf]+possible[i][veter]))connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i-1][cf]+possible[i][veter]];
                         else if(model.count(possible[i][veter]))connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i][veter]];
                         else connect[possible[i-1][cf]+possible[i][veter]]=model["<unk>"];
-                        printf("connect found at %d\n",count);
+                        // printf("connect found at %d\n",count);
                         if(prob[i][possible[i][veter]]<prob[i-1][possible[i-1][cf]]+connect[possible[i-1][cf]+possible[i][veter]])prob[i][possible[i][veter]] = prob[i-1][possible[i-1][cf]]+connect[possible[i-1][cf]+possible[i][veter]];//language model
                     };
                 };
