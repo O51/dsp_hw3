@@ -191,7 +191,7 @@ void disambig:: read_model(string modelpath)
             }
             else if(gram[1])
             {
-                model[modelvector[1]+modelvector[2]] = atof(modelvector[0].c_str());   
+                if(modelvector.size()==3)model[modelvector[1]+modelvector[2]] = atof(modelvector[0].c_str());   
             };
 
         };
