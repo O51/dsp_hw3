@@ -41,7 +41,7 @@ class disambig
         //string resolve(int column,bool out);
 
         map<string,vector<string> > mapping;
-        map<string,int> model;
+        map<string,double> model;
         
         //char* buffer_map;
         //char* buffer_model;
