@@ -103,7 +103,7 @@ void disambig:: read_map(string mappath)
             }
             else if(mapvector[0] == mapvector[1])
             {
-                mapping[mapvector[0]] = mapvector[1];
+                mapping[mapvector[0]] = {mapvector[1]};
             }
             else
             {
