@@ -135,8 +135,13 @@ void disambig:: read_model(string modelpath)
             printf("after cout\n");
             bool a = modelvector[0] == starter[0];
             printf("a=%d\n",a);
-            
-            if(modelvector[0] == starter[0])
+
+            if(modelvector.empty())
+            {
+                printf("space occur\n");
+                continue;
+            }
+            else if(modelvector[0] == starter[0])
             {
                 gram[0] = true;
                 printf("start 1-gram\n");
