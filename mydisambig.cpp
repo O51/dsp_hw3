@@ -173,7 +173,7 @@ void disambig:: read_model(string modelpath)
                 printf("start 2-gram\n");
                 continue;
             }
-            else if(!(gram[0] || gram[1]))
+            else if(!(gram[0] || gram[1]) || spce==4)
             {
                 printf("none\n");
                 continue;
@@ -200,7 +200,7 @@ void disambig:: read_model(string modelpath)
                 if(modelvector.size()+stg1.size()==4)
                 {
                     model[stg1[0]+stg1[1]] = atof(modelvector[0].c_str());
-                    printf("model added=%f\n",model[modelvector[1]+modelvector[2]]);  
+                    printf("model added=%f\n",model[stg1[0]+stg1[1]]);  
                 } 
             };
 
