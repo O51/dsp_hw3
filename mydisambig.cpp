@@ -61,6 +61,10 @@ disambig::disambig()
     for(int i=0;i<37;i++)
     {
         printf("correctness=%d\n",is_Zhuin(hante[i]));
+        if(!is_Zhuin(hante[i]))
+        {
+            printf("real=%x %x\n",hante[0],hante[1]);
+        }
     }
 
 
