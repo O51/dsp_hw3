@@ -60,14 +60,8 @@ disambig::disambig()
 };
 bool disambig::is_Zhuin(string alpha)
 {
-    if(int(alpha.substr(0,1)[0])==0xffffffa3)
-    {
-        if(int(alpha.substr(1,1)[0])>=0x74 && int(alpha.substr(1,1)[0])<=0xffffffB7)
-        {
-
-            return true;
-        }
-    };
+    string a="ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦ";
+    if a.find(alpha)return true;
     return false;
 }
 void disambig:: read_map(string mappath)
@@ -156,13 +150,13 @@ void disambig:: read_model(string modelpath)
                 spce +=1;
                 continue;
             }
-            else if(spce==2)
+            else if(spce==2 && gram[0]==false)
             {
                 gram[0] = true;
                 printf("start 1-gram\n");
                 continue;
             }
-            else if(spce==3)
+            else if(spce==3 && gram[1]==false)
             {
                 gram[1] = true;
                 gram[0] = false;
