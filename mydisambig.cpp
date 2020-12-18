@@ -180,6 +180,7 @@ void disambig:: read_model(string modelpath)
 
             if(gram[0])
             {
+                printf("modelvector size=%d\n",modelvector.size());
                 if(modelvector.size()==3)
                 {
                     model[modelvector[1]] = atof(modelvector[2].c_str());
@@ -193,6 +194,7 @@ void disambig:: read_model(string modelpath)
             }
             else if(gram[1])
             {
+                printf("modelvector size=%d\n",modelvector.size());
                 if(modelvector.size()==3)
                 {
                     model[modelvector[1]+modelvector[2]] = atof(modelvector[0].c_str());
