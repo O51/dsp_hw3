@@ -120,7 +120,7 @@ void disambig:: read_map(string mappath)
         mapping["<s>"] = {"<s>"};
         mapping["</s>"] = {"</s>"};
         mapping["<unk>"] = {"<unk>"};
-        printf("map size=%d\n",mapping.size());
+        // printf("map size=%d\n",mapping.size());
         //fout.close();
     };
 
@@ -211,7 +211,7 @@ void disambig:: read_model(string modelpath)
         };
         file.close();
     };
-    printf("model size=%d\n",model.size());
+    // printf("model size=%d\n",model.size());
     gram[0] = false;
     gram[1] = false;
     
@@ -221,7 +221,7 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
 {
     read_map(mappath);
     read_model(modelpath);
-    printf("files read\n");
+    // printf("files read\n");
     fstream file;
     fstream output;
     file.open(inputpath,ios::in);
@@ -237,7 +237,7 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
             // printf("resolving %d line\n",count);
             buffer = "<s> " + buffer +" </s>";
             vector<string> Input = splitStr2Vec(buffer," ");
-            printf("splitted\n");
+            // printf("splitted\n");
             vector<vector<string> > possible;
             vector<map<string,double> > prob;
             possible.resize(Input.size());
@@ -270,7 +270,7 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
                         if(prob[i][possible[i][veter]]<prob[i-1][possible[i-1][cf]]+connect[possible[i-1][cf]+possible[i][veter]])
                         {
                             prob[i][possible[i][veter]] = prob[i-1][possible[i-1][cf]]+connect[possible[i-1][cf]+possible[i][veter]];//language model
-                            printf("changed\n");
+                            // printf("changed\n");
                         };
                     };
                 };
@@ -287,7 +287,7 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
                     if(prob[i][take]+connect[take+Input[i+1]]<prob[i][possible[i][bk]]+connect[possible[i][bk]+Input[i+1]])
                     {
                         take=possible[i][bk];
-                        printf("backtrack changed\n");
+                        // printf("backtrack changed\n");
                     }
                 };
                 Input[i] = take;
