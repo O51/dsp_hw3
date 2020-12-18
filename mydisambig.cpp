@@ -126,7 +126,7 @@ void disambig:: read_map(string mappath)
 
 void disambig:: read_model(string modelpath)
 {
-    printf("start read model\n");
+    // printf("start read model\n");
     fstream file;
     file.open(modelpath,::ios::in);
     string buffer;
@@ -144,8 +144,8 @@ void disambig:: read_model(string modelpath)
     {
         while(getline(file,buffer))
         {
-            static int counter=0;
-            counter +=1;
+            // static int counter=0;
+            // counter +=1;
             //printf("model %d line\n",counter);
             modelvector = splitStr2Vec(buffer,"\t");
 
@@ -156,26 +156,26 @@ void disambig:: read_model(string modelpath)
 
             if(modelvector.empty())
             {
-                printf("space occur\n");
+                // printf("space occur\n");
                 spce +=1;
                 continue;
             }
             else if(spce==2 && gram[0]==false)
             {
                 gram[0] = true;
-                printf("start 1-gram\n");
+                // printf("start 1-gram\n");
                 continue;
             }
             else if(spce==3 && gram[1]==false)
             {
                 gram[1] = true;
                 gram[0] = false;
-                printf("start 2-gram\n");
+                // printf("start 2-gram\n");
                 continue;
             }
             else if(!(gram[0] || gram[1]) || spce==4)
             {
-                printf("none\n");
+                // printf("none\n");
                 continue;
             };
 
@@ -185,12 +185,12 @@ void disambig:: read_model(string modelpath)
                 if(modelvector.size()==3)
                 {
                     model[modelvector[1]] = atof(modelvector[2].c_str());
-                    printf("model added=%f\n",model[modelvector[1]]);
+                    // printf("model added=%f\n",model[modelvector[1]]);
                 }
                 else if(modelvector.size()==2)
                 {
                     model[modelvector[1]] = atof(modelvector[0].c_str());
-                    printf("model added=%f\n",model[modelvector[1]]);
+                    // printf("model added=%f\n",model[modelvector[1]]);
                 };
             }
             else if(gram[1])
@@ -200,7 +200,7 @@ void disambig:: read_model(string modelpath)
                 if(modelvector.size()+stg1.size()==4)
                 {
                     model[stg1[0]+stg1[1]] = atof(modelvector[0].c_str());
-                    printf("model added=%f\n",model[stg1[0]+stg1[1]]);  
+                    // printf("model added=%f\n",model[stg1[0]+stg1[1]]);  
                 } 
             };
 
@@ -228,6 +228,7 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
     {
         while(getline(file,buffer))
         {
+            buffer = "<s> " + buffer +" </s>";
             vector<string> Input = splitStr2Vec(buffer," ");
             vector<vector<string> > possible;
             vector<map<string,double> > prob;
@@ -243,7 +244,9 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
                     for(int cf=0;cf<possible[i-1].size();cf++)
                     {
                         //double connect=0.0;
-                        model.count(possible[i-1][cf]+possible[i][veter])==1?connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i-1][cf]+possible[i][veter]]:connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i][veter]];
+                        if(model.count(possible[i-1][cf]+possible[i][veter]))connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i-1][cf]+possible[i][veter]];
+                        else if(model.count(possible[i][veter])):connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i][veter]];
+                        else connect[possible[i-1][cf]+possible[i][veter]]=model["<unk>"];
                         if(prob[i][possible[i][veter]]<prob[i-1][possible[i-1][cf]]+connect[possible[i-1][cf]+possible[i][veter]])prob[i][possible[i][veter]] = prob[i-1][possible[i-1][cf]]+connect[possible[i-1][cf]+possible[i][veter]];//language model
                     };
                 };
