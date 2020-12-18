@@ -53,8 +53,8 @@ disambig::disambig()
 {
     //buffer_map = new char[5e8];
     //buffer_model = new char[5e8];
-    printf("chinese=%x,%x\n","ㄅ".c_str()[0],"ㄅ".c_str()[1]);
-    printf("chinese=%x,%x\n","ㄦ".c_str()[0],"ㄦ".c_str()[1]);
+    printf("chinese=%x,%x\n","ㄅ"[0],"ㄅ"[1]);
+    printf("chinese=%x,%x\n","ㄦ"[0],"ㄦ"[1]);
 
 
 };
