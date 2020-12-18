@@ -264,8 +264,8 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
                     {
                         //double connect=0.0;
                         if(model.count(possible[i-1][cf]+possible[i][veter]))connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i-1][cf]+possible[i][veter]];
-                        else if(model.count(possible[i][veter]))connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i][veter]]-100;
-                        else connect[possible[i-1][cf]+possible[i][veter]]=model["<unk>"]-200;
+                        else if(model.count(possible[i][veter]))connect[possible[i-1][cf]+possible[i][veter]]=model[possible[i][veter]]-150;
+                        else connect[possible[i-1][cf]+possible[i][veter]]=model["<unk>"]-900;
                         // printf("connect found at %d\n",count);
                         if(prob[i][possible[i][veter]]<prob[i-1][possible[i-1][cf]]+connect[possible[i-1][cf]+possible[i][veter]])
                         {
