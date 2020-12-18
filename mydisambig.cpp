@@ -228,7 +228,7 @@ void disambig::resolver(string inputpath,string mappath,string modelpath,string 
     {
         while(getline(file,buffer))
         {
-            static count=0;
+            static int count=0;
             count +=1;
             printf("resolving %d line\n",count);
             buffer = "<s> " + buffer +" </s>";
